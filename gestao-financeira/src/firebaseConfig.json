@@ -1,0 +1,12 @@
+{
+    "firebaseConfig":{
+        
+            "apiKey": "AIzaSyBwNL0S1x3icCPnimq_EDYmniynOIYEeDI",
+            "authDomain": "doidinho-6e569.firebaseapp.com",
+            "projectId": "doidinho-6e569",
+            "storageBucket": "doidinho-6e569.appspot.com",
+            "messagingSenderId": "944161192931",
+            "appId": "1:944161192931:web:0a65fd52041595dba17ed6"
+          
+    }
+}
