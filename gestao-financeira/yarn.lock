@@ -1369,6 +1369,16 @@ gensync@^1.0.0-beta.2:
   resolved "https://registry.npmjs.org/gensync/-/gensync-1.0.0-beta.2.tgz"
   integrity sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==
 
+"gestao-financeira@file:":
+  version "0.0.0"
+  resolved "file:"
+  dependencies:
+    firebase "^10.13.1"
+    gestao-financeira "file:"
+    react "^18.3.1"
+    react-dom "^18.3.1"
+    react-router-dom "^6.26.2"
+
 get-caller-file@^2.0.5:
   version "2.0.5"
   resolved "https://registry.npmjs.org/get-caller-file/-/get-caller-file-2.0.5.tgz"
