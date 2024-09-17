@@ -1,13 +1,9 @@
-import { initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'
-import config from './firebaseConfig.json'
+// src/firebase.ts
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import firebaseConfig from './firebaseConfig.json'; // Importa o arquivo JSON
 
-const firebaseConfig = config.firebaseConfig;
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-// inicializa o firebase
-const app = initializeApp(firebaseConfig)
-
-// inicializar firestore e auth
-export const db = getFirestore(app)
-export const auth = getAuth(app)
+export { db };

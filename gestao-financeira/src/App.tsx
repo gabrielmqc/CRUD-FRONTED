@@ -5,9 +5,12 @@ import Dashboard from "./pages/dashboard";
 import Home from "./pages/home";
 import Sobre from "./pages/sobre";
 import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
+import TransactionList from './components/transaction/TransactionList';
+import TransactionForm from './components/transaction/TransactionForm';
+import { FinancialProvider } from './context/financialContext';
 
 function App() {
-  const renderizarBotoes = () => (
+ /* const renderizarBotoes = () => (
     <div className="App">
         <nav>
           <ul>
@@ -18,18 +21,28 @@ function App() {
           </ul>
         </nav>
       </div>
-  );
+  );*/
 
   return (
-    <Router>
+
+
+    <FinancialProvider>
+      <div>
+        <h1>Controle Financeiro</h1>
+        <TransactionForm />
+        <TransactionList />
+      </div>
+    </FinancialProvider>
+    /*<Router>
           {renderizarBotoes()}
           <Routes>
             <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/sobre" element={<Sobre />} />
           </Routes>
-    </Router>
+    </Router>*/
         
   );
 }

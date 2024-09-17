@@ -1,4 +1,4 @@
-import {db, auth} from '../firebaseConfig'
+/*import {db, auth} from '../firebaseConfig'
 import { Firestore } from 'firebase/firestore'
 import { Auth } from 'firebase/auth'
 import { createContext } from 'react'
@@ -8,4 +8,4 @@ interface FirebaseContextProps {
     auth: Auth
 }
 
-export const FirebaseContext = createContext<FirebaseContextProps | undefined>(undefined)
+export const FirebaseContext = createContext<FirebaseContextProps | undefined>(undefined)*/

@@ -1,4 +1,4 @@
-import { useContext } from "react"
+/*import { useContext } from "react"
 import { FirebaseContext } from "../context/contextFirebase"
 
 export const useFirebase = () => {
@@ -7,4 +7,4 @@ export const useFirebase = () => {
     if (!contexto) {
         throw new Error('useFirebase só pode ser usado dentro do contexto FirebaseContext')
     }
-}
+}*/
