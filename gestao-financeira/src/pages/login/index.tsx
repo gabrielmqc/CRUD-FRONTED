@@ -3,6 +3,9 @@ import './style.css';
 import '../../styles/index.css'
 import Button from "../../components/button";
 import Input from "../../components/input";
+import '../../firebaseConfig'
+import firebaseConfig from "../../firebaseConfig";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -12,6 +15,19 @@ const Login = () => {
         e.preventDefault();
         // Here you would typically handle the login logic
         console.log("Login attempt with:", { email, password });
+    };
+
+    const navigate = useNavigate();
+
+    const actionLoginGoogle = async() => {
+       const user = await firebaseConfig.googleLogar();
+
+       if(user){
+           localStorage.setItem('user', JSON.stringify(user));
+           navigate('/home');
+       } else {
+           alert('Erro ao logar com o Google');
+       }
     };
 
     return (
@@ -39,7 +55,9 @@ const Login = () => {
 
                 <div className="form-group">
                     <Button text="Entrar"></Button>
-
+                </div>
+                <div className="form-group">
+                    <Button text="Login com google" onClick={actionLoginGoogle}></Button>
                 </div>
             </form>
         </div>
