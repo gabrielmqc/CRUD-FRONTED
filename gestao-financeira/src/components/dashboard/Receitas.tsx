@@ -1,99 +1,88 @@
-import React, { useState } from "react";
-import { useApp } from "../../context/appContext";
-import EditModal from "./EditModal";
-import { Transacao } from "../../types/models";
-import "../styles/transactions.css";
+import { useEffect, useState } from "react";
+import { receitasCollection } from "../../context/controler";
+import { DocumentData, onSnapshot, QuerySnapshot, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import { NovaReceitaType } from "../../types/receitas";
+import Information from "../Information";
+import './style.css';
 
-const Receitas: React.FC = () => {
-  const { receitas, adicionarReceita, editReceita, deleteReceita } = useApp();
-  const [descricao, setDescricao] = useState("");
-  const [valor, setValor] = useState("");
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editingReceita, setEditingReceita] = useState<Transacao | null>(null);
+function Receitas() {
+  const [receitas, setReceitas] = useState<NovaReceitaType[]>([]);
+  const [novaReceita, setNovaReceita] = useState({ description: '', valor: 0 });
+  const [editingId, setEditingId] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    adicionarReceita({
-      descricao,
-      valor: parseFloat(valor),
-      data: new Date(),
-      tipo: "receita",
-    });
-    setDescricao("");
-    setValor("");
-  };
 
-  const handleEdit = (receita: Transacao) => {
-    setEditingReceita(receita);
-    setIsEditModalOpen(true);
-  };
+  useEffect(() => onSnapshot(receitasCollection, (snapshot: QuerySnapshot<DocumentData, DocumentData>) => {
+    setReceitas(
+      snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) 
+    )
+  }), []);
 
-  const handleDelete = (id: string) => {
-    if (window.confirm("Certeza que deseja excluir esta receita?")) {
-      deleteReceita(id);
+  const adicionarOuAtualizarReceita = async () => {
+    if (editingId) {
+      const ReceitaRef = doc(receitasCollection, editingId);
+      await updateDoc(ReceitaRef, novaReceita);
+      setEditingId(null);
+    } else {
+      await addDoc(receitasCollection, novaReceita);
     }
+    setNovaReceita({ description: '', valor: 0 });
+  };
+
+
+  const editarReceita= (receita: NovaReceitaType) => {
+    setNovaReceita({ description: receita.description || '', valor: receita.valor || 0 });
+    setEditingId(receita.id!);
+  };
+
+  const excluirReceita = async (id: string) => {
+    const receitaRef = doc(receitasCollection, id);
+    await deleteDoc(receitaRef);
   };
 
   return (
-    <div>
-      <h2>Adicionar Receita</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="transaction-container">
+      <h2 className="transaction-title">Receitas</h2>
+      <div className="transaction-form">
         <input
           type="text"
-          value={descricao}
-          onChange={(e) => setDescricao(e.target.value)}
+          className="transaction-input"
+          value={novaReceita.description}
+          onChange={(e) => setNovaReceita({ ...novaReceita, description: e.target.value })}
           placeholder="Descrição"
-          required
         />
         <input
           type="number"
-          value={valor}
-          onChange={(e) => setValor(e.target.value)}
+          className="transaction-input"
+          value={novaReceita.valor}
+          onChange={(e) => setNovaReceita({ ...novaReceita, valor: parseFloat(e.target.value) })}
           placeholder="Valor"
-          required
         />
-        <button type="submit">Adicionar</button>
-      </form>
-      <p></p>
-      <h2>Receitas</h2>
-      <ul>
-        {receitas.map((receita) => (
-          <li key={receita.id} className="transaction-item">
-            <div className="transaction-info">
-              {receita.descricao} - R$ {receita.valor.toFixed(2)}
-            </div>
-            <div className="transaction-actions">
-              <button
-                className="action-button edit-button"
-                onClick={() => handleEdit(receita)}
-              >
-                Editar
-              </button>
-              <button
-                className="action-button delete-button"
-                onClick={() => handleDelete(receita.id)}
-              >
-                Deletar
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-      {isEditModalOpen && editingReceita && (
-        <EditModal
-          transacao={editingReceita}
-          onSave={(updatedReceita) => {
-            editReceita(editingReceita.id, {
-              ...updatedReceita,
-              tipo: "receita",
-            });
-            setIsEditModalOpen(false);
-          }}
-          onClose={() => setIsEditModalOpen(false)}
-        />
+        <button className="transaction-button" onClick={adicionarOuAtualizarReceita}>
+          {editingId ? 'Atualizar Receita' : 'Adicionar Receita'}
+        </button>
+      </div>
+      {receitas && receitas.length ? (
+        <ul className="transaction-list">
+          {receitas.map((receita) => (
+            <li key={receita.id!} className="transaction-item">
+              <div className="transaction-info">
+                <Information receita={receita} />
+              </div>
+              <div className="transaction-actions">
+                <button className="edit-button" onClick={() => editarReceita(receita)}>Editar</button>
+                <button className="delete-button" onClick={() => excluirReceita(receita.id!)}>Excluir</button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <h2>Não existem Receitas</h2>
       )}
     </div>
   );
-};
+}
 
 export default Receitas;

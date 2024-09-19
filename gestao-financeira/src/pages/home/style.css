@@ -1,0 +1,52 @@
+.home-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .home-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .home-description {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 40px;
+  }
+  
+  .home-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .home-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .home-button.primary {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .home-button.primary:hover {
+    background-color: #45a049;
+  }
+  
+  .home-button.secondary {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+  }
+  
+  .home-button.secondary:hover {
+    background-color: #e0e0e0;
+  }
+  

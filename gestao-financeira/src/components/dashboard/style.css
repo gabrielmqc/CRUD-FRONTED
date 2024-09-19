@@ -1,0 +1,91 @@
+.transaction-container {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .transaction-title {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .transaction-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .transaction-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .transaction-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .transaction-button:hover {
+    background-color: #45a049;
+  }
+  
+  .transaction-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .transaction-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .transaction-info {
+    flex: 1;
+  }
+  
+  .transaction-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .edit-button, .delete-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .edit-button {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  .edit-button:hover {
+    background-color: #1976D2;
+  }
+  
+  .delete-button {
+    background-color: #F44336;
+    color: white;
+  }
+  
+  .delete-button:hover {
+    background-color: #D32F2F;
+  }
+  
